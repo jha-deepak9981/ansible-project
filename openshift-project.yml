@@ -1,0 +1,40 @@
+---
+- name: Creating New Project
+  hosts: masters
+  tasks:
+          - name: New Project
+            oc:
+                    state: "{{ project_state }}"
+                    host: 172.24.0.151
+                    port: 8443
+                    inline:
+                            kind: ProjectRequest
+                            metadata:
+                                    name: "{{ project_name }}"
+                            displayName: "{{ project_display_name }}"
+                            description: "{{ project_comment }}"
+                    token: "{{ project_token }}"  
+                                  
+
+          - name: Create Project User
+            htpasswd:
+                    path: /etc/origin/master/htpasswd
+                    name: "{{ project_user }}"
+                    password: "{{ project_user_password }}"
+
+          - name: Add project role Admin to a user
+            oc:
+                    state: present
+                    host: 172.24.0.151
+                    port: 8443
+                    inline:
+                            kind: RoleBinding
+                            metadata:
+                                name: admin
+                                namespace: "{{ project_name }}"
+                            roleRef:
+                                name: admin
+                            userNames:
+                                - "{{ project_user }}"
+                    token: "{{ project_token }}"
+

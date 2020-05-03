@@ -1,0 +1,18 @@
+[localhost]
+172.24.0.10
+
+# host group for masters
+[masters]
+master.openshift.com openshift_ip=172.24.0.151
+
+# host group for etcd
+[etcd]
+master.openshift.com openshift_ip=172.24.0.151
+
+# host group for nodes, includes region info
+[nodes]
+master.openshift.com openshift_ip=172.24.0.151  openshift_node_group_name='node-config-master'
+infra.openshift.com openshift_ip=172.24.0.152  openshift_node_group_name='node-config-infra'
+node1.openshift.com openshift_ip=172.24.0.153  openshift_node_group_name='node-config-compute'
+node2.openshift.com openshift_ip=172.24.0.154  openshift_node_group_name='node-config-compute'
+
