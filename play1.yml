@@ -1,6 +1,6 @@
 ---
 - name: Test
-  hosts: server1.example.com
+  hosts: all
   tasks:
           - name: Create user
             user:
