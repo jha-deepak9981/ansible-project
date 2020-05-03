@@ -1,0 +1,8 @@
+---
+- name: Test
+  hosts: server1.example.com
+  tasks:
+          - name: Create user
+            user:
+                    name: test
+                    state: present
